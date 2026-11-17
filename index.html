@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Maligayang Kaarawan, Kate! 🎂 Happy Birthday!</title>
+  
+  <!-- Google Fonts: Pacifico (Playful Script), Playfair Display (Elegant Serif), & Poppins (Modern Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti CDN for celebratory bursts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Theme Setup
+       ========================================================================== */
+    :root {
+      --bg-dark: #0d0714;
+      --bg-violet: #1d0f2e;
+      --accent-gold: #ffbe3b;
+      --accent-gold-light: #ffe082;
+      --accent-pink: #ff4071;
+      --accent-coral: #ff6b8b;
+      --accent-purple: #9b5de5;
+      --accent-cyan: #00f5d4;
+      --text-main: #ffffff;
+      --text-muted: #e2d9ec;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      --font-heading: 'Pacifico', cursive;
+      --font-serif: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: radial-gradient(circle at 50% 20%, #2a1145 0%, #150924 50%, var(--bg-dark) 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* Ambient animated lighting blobs */
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.55;
+      animation: floatGlow 12s infinite alternate ease-in-out;
+    }
+
+    .glow-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, var(--accent-pink) 0%, transparent 70%);
+      top: -100px;
+      left: -80px;
+    }
+
+    .glow-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
+      bottom: -150px;
+      right: -100px;
+      animation-delay: -5s;
+    }
+
+    .glow-3 {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+      top: 40%;
+      left: 55%;
+      animation-delay: -3s;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, 30px) scale(1.15); }
+      100% { transform: translate(-30px, 50px) scale(0.95); }
+    }
+
+    /* Fullscreen Fireworks Canvas */
+    #fireworksCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2;
+      pointer-events: auto; /* allows clicking anywhere for extra fireworks */
+      cursor: crosshair;
+    }
+
+    /* Balloon Container (Overlaying canvas, behind content) */
+    #balloonContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    /* Top Navigation / Controls Bar */
+    .top-controls {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      border-color: var(--accent-gold-light);
+      box-shadow: 0 8px 25px rgba(255, 190, 59, 0.3);
+    }
+
+    .music-waves {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+    }
+
+    .music-waves span {
+      width: 3px;
+      background: var(--accent-gold);
+      border-radius: 3px;
+      animation: musicBar 1.2s infinite ease-in-out;
+    }
+
+    .music-waves span:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+    .music-waves span:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+    .music-waves span:nth-child(3) { height: 9px; animation-delay: 0.2s; }
+    .music-waves span:nth-child(4) { height: 16px; animation-delay: 0.4s; }
+
+    .music-waves.paused span {
+      animation: none;
+      height: 4px;
+      background: #aaa;
+    }
+
+    @keyframes musicBar {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1); }
+    }
+
+    .balloon-counter-badge {
+      background: rgba(255, 64, 113, 0.2);
+      border: 1px solid rgba(255, 64, 113, 0.4);
+      color: #ff9ebb;
+      font-size: 0.82rem;
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Main Content Wrapper */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 80px 20px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+      text-align: center;
+    }
+
+    /* Header Section */
+    .hero-header {
+      animation: fadeInDown 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .philippine-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--accent-gold-light);
+      margin-bottom: 18px;
+      box-shadow: 0 4px 15px rgba(255, 190, 59, 0.2);
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 10%, #ffe494 40%, #ff6b8b 75%, #ff4071 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 6px 20px rgba(255, 64, 113, 0.35));
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-style: italic;
+      color: var(--accent-gold-light);
+      opacity: 0.95;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Glassmorphism Base Card */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      box-shadow: var(--glass-shadow);
+      padding: 36px 32px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(
+        60deg,
+        transparent,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.12),
+        rgba(255, 255, 255, 0.04),
+        transparent
+      );
+      transform: rotate(25deg);
+      pointer-events: none;
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 107, 139, 0.2);
+    }
+
+    /* ==========================================================================
+       Interactive Birthday Cake Section
+       ========================================================================== */
+    .cake-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cake-wrapper {
+      position: relative;
+      width: 220px;
+      height: 200px;
+      margin: 10px auto;
+      cursor: pointer;
+    }
+
+    .cake-scene {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    /* Cake Tiers */
+    .cake-plate {
+      position: absolute;
+      bottom: 0;
+      width: 210px;
+      height: 14px;
+      background: linear-gradient(to right, #cfd8dc, #eceff1, #b0bec5);
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .cake-tier-bottom {
+      position: absolute;
+      bottom: 12px;
+      width: 170px;
+      height: 65px;
+      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+      border-radius: 16px 16px 8px 8px;
+      box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .cake-tier-bottom .frosting-drip {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 18px;
+      background: #ffffff;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .cake-tier-top {
+      position: absolute;
+      bottom: 74px;
+      width: 120px;
+      height: 55px;
+      background: linear-gradient(135deg, #ffd166 0%, #ffe082 100%);
+      border-radius: 14px 14px 6px 6px;
+      box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .cake-tier-top .frosting-drip {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 16px;
+      background: #ffffff;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Candles */
+    .candles-group {
+      position: absolute;
+      bottom: 128px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      z-index: 5;
+    }
+
+    .candle {
+      position: relative;
+      width: 10px;
+      height: 38px;
+      background: repeating-linear-gradient(
+        45deg,
+        #00f5d4,
+        #00f5d4 5px,
+        #ffffff 5px,
+        #ffffff 10px
+      );
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .candle:nth-child(2) {
+      height: 44px;
+      background: repeating-linear-gradient(
+        45deg,
+        #ff4071,
+        #ff4071 5px,
+        #ffffff 5px,
+        #ffffff 10px
+      );
+    }
+
+    .candle-wick {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 6px;
+      background: #444;
+    }
+
+    .flame {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 22px;
+      background: radial-gradient(ellipse at bottom, #fff 0%, #ffbe3b 40%, #ff4500 80%, transparent 100%);
+      border-radius: 50% 50% 20% 20%;
+      filter: drop-shadow(0 0 8px #ff9e00);
+      animation: flicker 0.9s infinite alternate ease-in-out;
+      transform-origin: center bottom;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .flame.extinguished {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.2);
+      pointer-events: none;
+    }
+
+    .smoke {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: rgba(220, 220, 220, 0.7);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .smoke.puff {
+      animation: smokeRise 1.4s forwards ease-out;
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+      50% { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+      100% { transform: translateX(-50%) scale(0.95) rotate(-1deg); }
+    }
+
+    @keyframes smokeRise {
+      0% { opacity: 0.8; transform: translateX(-50%) translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-35px) scale(3.5); }
+    }
+
+    .cake-prompt {
+      font-size: 0.95rem;
+      color: var(--accent-gold-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 190, 59, 0.12);
+      padding: 8px 18px;
+      border-radius: 30px;
+      border: 1px dashed rgba(255, 190, 59, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cake-prompt:hover {
+      background: rgba(255, 190, 59, 0.22);
+      transform: scale(1.03);
+    }
+
+    .wish-alert-box {
+      display: none;
+      background: linear-gradient(135deg, rgba(255, 64, 113, 0.25), rgba(155, 93, 229, 0.25));
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      padding: 16px 24px;
+      border-radius: 20px;
+      margin-top: 10px;
+      animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .wish-alert-box.active {
+      display: block;
+    }
+
+    /* ==========================================================================
+       Bilingual Heartfelt Message Section
+       ========================================================================== */
+    .message-card {
+      text-align: left;
+    }
+
+    .message-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .message-badge {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .date-stamp {
+      font-size: 0.85rem;
+      color: #bbb;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .salutation {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: #ff85a2;
+      margin-bottom: 18px;
+    }
+
+    .letter-body {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.85;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .highlight-tagalog {
+      color: #ffe082;
+      font-weight: 500;
+      background: rgba(255, 190, 59, 0.1);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .quote-box {
+      border-left: 3px solid var(--accent-gold);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 14px 20px;
+      border-radius: 0 16px 16px 0;
+      margin: 10px 0;
+      font-style: italic;
+      color: #fff;
+    }
+
+    .cultural-treats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .treat-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      transition: all 0.3s ease;
+    }
+
+    .treat-pill:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent-pink);
+      transform: translateY(-2px);
+    }
+
+    .treat-icon {
+      font-size: 1.4rem;
+    }
+
+    .signature-area {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .sign-closing {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--accent-gold-light);
+    }
+
+    .sign-name {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: #ff85a2;
+    }
+
+    /* ==========================================================================
+       Interactive Celebration Playground / Action Buttons
+       ========================================================================== */
+    .actions-card {
+      padding: 30px 24px;
+    }
+
+    .actions-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .actions-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      width: 100%;
+    }
+
+    .action-btn {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-btn .btn-icon {
+      font-size: 1.6rem;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--accent-gold);
+      box-shadow: 0 10px 25px rgba(255, 190, 59, 0.25);
+    }
+
+    .action-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .btn-fireworks {
+      background: linear-gradient(135deg, rgba(255, 64, 113, 0.3), rgba(155, 93, 229, 0.3));
+    }
+
+    .btn-confetti {
+      background: linear-gradient(135deg, rgba(0, 245, 212, 0.25), rgba(255, 190, 59, 0.25));
+    }
+
+    .btn-blessing {
+      background: linear-gradient(135deg, rgba(255, 190, 59, 0.3), rgba(255, 107, 139, 0.3));
+    }
+
+    .btn-balloons {
+      background: linear-gradient(135deg, rgba(155, 93, 229, 0.3), rgba(0, 245, 212, 0.25));
+    }
+
+    /* Filipino Blessing Popup Modal */
+    .blessing-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(10, 4, 18, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      padding: 20px;
+    }
+
+    .blessing-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .blessing-modal-card {
+      background: linear-gradient(145deg, #2b1343, #170929);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      border-radius: 28px;
+      max-width: 480px;
+      width: 100%;
+      padding: 34px 28px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 190, 59, 0.25);
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .blessing-modal-backdrop.open .blessing-modal-card {
+      transform: scale(1);
+    }
+
+    .close-modal-btn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .close-modal-btn:hover {
+      background: rgba(255, 64, 113, 0.4);
+    }
+
+    .blessing-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      animation: pulseBounce 2s infinite ease-in-out;
+    }
+
+    .blessing-tagalog {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--accent-gold-light);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .blessing-english {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Footer */
+    .page-footer {
+      font-size: 0.88rem;
+      color: #9f91b3;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .footer-heart {
+      color: var(--accent-pink);
+      display: inline-block;
+      animation: heartbeat 1.5s infinite ease-in-out;
+    }
+
+    /* ==========================================================================
+       Interactive Welcome Screen Overlay (Gift Box Entry)
+       ========================================================================== */
+    #welcomeOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #26113d 0%, #11061c 65%, #05020a 100%);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s;
+    }
+
+    #welcomeOverlay.hidden {
+      opacity: 0;
+      transform: scale(1.08);
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .gift-container {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin-bottom: 35px;
+      cursor: pointer;
+      perspective: 800px;
+      transition: transform 0.3s ease;
+    }
+
+    .gift-container:hover {
+      transform: scale(1.06);
+    }
+
+    /* Gift Box CSS 3D */
+    .gift-box {
+      width: 140px;
+      height: 115px;
+      background: linear-gradient(135deg, #ff4071 0%, #d81b60 100%);
+      border-radius: 12px;
+      position: absolute;
+      bottom: 0;
+      left: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 64, 113, 0.4);
+    }
+
+    /* Ribbon on box */
+    .gift-ribbon-vertical {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 100%;
+      background: linear-gradient(to right, #ffe082, #ffbe3b, #f5a623);
+      box-shadow: 0 0 8px rgba(255, 190, 59, 0.5);
+    }
+
+    .gift-ribbon-horizontal {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 24px;
+      background: linear-gradient(to bottom, #ffe082, #ffbe3b, #f5a623);
+      box-shadow: 0 0 8px rgba(255, 190, 59, 0.5);
+    }
+
+    /* Gift Lid */
+    .gift-lid {
+      width: 160px;
+      height: 38px;
+      background: linear-gradient(135deg, #ff537e 0%, #e91e63 100%);
+      border-radius: 10px;
+      position: absolute;
+      top: 24px;
+      left: 5px;
+      z-index: 2;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .gift-lid-ribbon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 26px;
+      height: 100%;
+      background: linear-gradient(to right, #ffe082, #ffbe3b, #f5a623);
+    }
+
+    /* Bow on Top */
+    .gift-bow {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 24px;
+      z-index: 3;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .bow-loop-left, .bow-loop-right {
+      position: absolute;
+      width: 24px;
+      height: 20px;
+      border: 4px solid #ffe082;
+      border-radius: 50% 50% 10% 50%;
+      background: rgba(255, 190, 59, 0.3);
+      top: 0;
+    }
+
+    .bow-loop-left {
+      left: 0;
+      transform: rotate(-25deg);
+    }
+
+    .bow-loop-right {
+      right: 0;
+      transform: scaleX(-1) rotate(-25deg);
+    }
+
+    .bow-center {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: #ffd166;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Tag on box */
+    .gift-tag {
+      position: absolute;
+      bottom: 24px;
+      right: 20px;
+      background: #fff;
+      color: #333;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transform: rotate(8deg);
+      z-index: 4;
+    }
+
+    /* Lid opening animation */
+    .gift-container.opened .gift-lid {
+      transform: translateY(-45px) rotate(-18deg);
+    }
+
+    .gift-container.opened .gift-bow {
+      transform: translateX(-50%) translateY(-48px) rotate(-18deg);
+    }
+
+    .welcome-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5.5vw, 3.4rem);
+      color: #fff;
+      margin-bottom: 12px;
+      text-shadow: 0 4px 15px rgba(255, 64, 113, 0.5);
+    }
+
+    .welcome-desc {
+      font-size: 1.05rem;
+      color: var(--accent-gold-light);
+      max-width: 440px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .open-surprise-btn {
+      background: linear-gradient(135deg, #ff4071 0%, #ff85a2 50%, #ffbe3b 100%);
+      border: none;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 1.12rem;
+      font-weight: 700;
+      padding: 16px 38px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255, 64, 113, 0.5), 0 0 20px rgba(255, 190, 59, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: pulseBtn 2s infinite;
+    }
+
+    .open-surprise-btn:hover {
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 15px 40px rgba(255, 64, 113, 0.7), 0 0 30px rgba(255, 190, 59, 0.6);
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: 0 10px 30px rgba(255, 64, 113, 0.5); }
+      50% { box-shadow: 0 12px 40px rgba(255, 64, 113, 0.8), 0 0 25px rgba(255, 190, 59, 0.7); }
+    }
+
+    /* ==========================================================================
+       Floating Balloons & Pop Particles
+       ========================================================================== */
+    .balloon {
+      position: absolute;
+      width: 58px;
+      height: 72px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      cursor: pointer;
+      pointer-events: auto;
+      z-index: 4;
+      transition: transform 0.15s ease;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.3));
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      width: 12px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55);
+      transform: rotate(-25deg);
+    }
+
+    .balloon-knot {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 7px;
+      border-radius: 3px;
+      background: inherit;
+    }
+
+    .balloon-string {
+      position: absolute;
+      bottom: -46px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.4);
+      transform-origin: top center;
+      animation: stringSway 1.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes stringSway {
+      0% { transform: translateX(-50%) rotate(-8deg); }
+      100% { transform: translateX(-50%) rotate(8deg); }
+    }
+
+    /* Pop feedback floating text */
+    .pop-float-text {
+      position: absolute;
+      pointer-events: none;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      z-index: 20;
+      animation: popFloatUp 0.85s forwards ease-out;
+    }
+
+    @keyframes popFloatUp {
+      0% { opacity: 1; transform: translateY(0) scale(0.8); }
+      50% { transform: translateY(-24px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-50px) scale(1); }
+    }
+
+    /* Pop Shards */
+    .balloon-shard {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    /* ==========================================================================
+       Animations & Keyframes
+       ========================================================================== */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulseBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15) rotate(4deg); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      20%, 60% { transform: scale(1.25); }
+      40% { transform: scale(1.1); }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 640px) {
+      .content-wrapper {
+        padding: 70px 16px 80px;
+        gap: 26px;
+      }
+      .glass-card {
+        padding: 26px 18px;
+        border-radius: 22px;
+      }
+      .top-controls {
+        top: 12px;
+        right: 12px;
+        gap: 8px;
+      }
+      .control-btn {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+      }
+      .balloon-counter-badge {
+        display: none; /* Keep clean on small screens */
+      }
+      .button-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero-title {
+        font-size: 2.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Background Blobs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- HTML5 Fullscreen Fireworks Canvas -->
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- Interactive Floating Balloons Container -->
+  <div id="balloonContainer"></div>
+
+  <!-- Floating Audio & Status Controls -->
+  <header class="top-controls">
+    <div class="balloon-counter-badge" id="balloonBadge">
+      🎈 Popped: <strong id="popCount">0</strong>
+    </div>
+
+    <!-- Music / Audio Toggle -->
+    <button class="control-btn" id="audioToggleBtn" title="Toggle Birthday Melody">
+      <div class="music-waves" id="musicWaves">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <span id="audioBtnText">Music On</span>
+    </button>
+  </header>
+
+  <!-- Welcome / Gift Box Interactive Overlay -->
+  <div id="welcomeOverlay">
+    <div class="gift-container" id="giftBoxTrigger" title="Click to open your surprise!">
+      <div class="gift-lid">
+        <div class="gift-lid-ribbon"></div>
+      </div>
+      <div class="gift-bow">
+        <div class="bow-loop-left"></div>
+        <div class="bow-loop-right"></div>
+        <div class="bow-center"></div>
+      </div>
+      <div class="gift-box">
+        <div class="gift-ribbon-vertical"></div>
+        <div class="gift-ribbon-horizontal"></div>
+        <div class="gift-tag">Para kay Kate 🎀</div>
+      </div>
+    </div>
+
+    <h1 class="welcome-title">May Sorpresa Para sa'yo! ✨</h1>
+    <p class="welcome-desc">
+      A special birthday celebration page made with warm love, music, and joy. Tap the gift box to unlock your surprise!
+    </p>
+
+    <button class="open-surprise-btn" id="openGiftBtn">
+      <span>🎁 Buksan ang Regalo • Open Surprise</span>
+    </button>
+  </div>
+
+  <!-- Main Celebration Content -->
+  <main class="content-wrapper">
+    
+    <!-- Hero Title Header -->
+    <section class="hero-header">
+      <div class="philippine-badge">
+        <span>🇵🇭</span> ISANG MASAYANG PAGDIRIWANG PARA KAY KATE 🎂
+      </div>
+      <h1 class="hero-title">Maligayang Kaarawan, Kate!</h1>
+      <p class="hero-subtitle">Happy Birthday to a wonderful, radiant soul ✨</p>
+    </section>
+
+    <!-- Interactive Birthday Cake Card -->
+    <section class="glass-card cake-card">
+      <div class="cake-wrapper" id="cakeInteractive" title="Tap candles to make a wish & blow them out!">
+        <div class="cake-scene">
+          <!-- Candles with flickering flames -->
+          <div class="candles-group">
+            <div class="candle">
+              <div class="candle-wick"></div>
+              <div class="flame" id="flame1"></div>
+              <div class="smoke" id="smoke1"></div>
+            </div>
+            <div class="candle">
+              <div class="candle-wick"></div>
+              <div class="flame" id="flame2"></div>
+              <div class="smoke" id="smoke2"></div>
+            </div>
+            <div class="candle">
+              <div class="candle-wick"></div>
+              <div class="flame" id="flame3"></div>
+              <div class="smoke" id="smoke3"></div>
+            </div>
+          </div>
+
+          <!-- Cake Tiers -->
+          <div class="cake-tier-top">
+            <div class="frosting-drip"></div>
+          </div>
+          <div class="cake-tier-bottom">
+            <div class="frosting-drip"></div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+      </div>
+
+      <button class="cake-prompt" id="blowCandlesBtn">
+        <span>🕯️</span> <span id="candleBtnLabel">Hipan ang kandila at Humiling! • Blow candles & Make a Wish</span>
+      </button>
+
+      <div class="wish-alert-box" id="wishAlertBox">
+        <h3 style="color: var(--accent-gold); font-family: var(--font-serif); margin-bottom: 6px;">✨ Wish Granted! Matutupad ang iyong hiling! ✨</h3>
+        <p style="font-size: 0.95rem; color: #fff;">
+          Nawa'y gabayan ka ng kalusugan, kapayapaan, at walang kapantay na tagumpay sa bawat araw ng bagong taon ng iyong buhay!
+        </p>
+      </div>
+    </section>
+
+    <!-- Bilingual Heartfelt Greeting Card -->
+    <article class="glass-card message-card">
+      <div class="message-header">
+        <div class="message-badge">
+          <span>💌</span> Isang Mensahe Mula sa Puso
+        </div>
+        <div class="date-stamp">Special Birthday Tribute</div>
+      </div>
+
+      <div class="salutation">Mahal naming Kate,</div>
+
+      <div class="letter-body">
+        <p>
+          <span class="highlight-tagalog">Maligayang Kaarawan sa'yo!</span> On this extraordinary day, we want to celebrate everything that makes you so cherished and deeply appreciated. Your radiant smile, your generous spirit, and the genuine kindness you share with everyone around you illuminate the world wherever you go.
+        </p>
+
+        <div class="quote-box">
+          "Maraming salamat sa iyong kabaitan, saya, at pagiging tunay na kaibigan. Ang pagkakaroon ng isang Kate sa buhay ay isang napakalaking biyaya."
+        </div>
+
+        <p>
+          In true Filipino celebration spirit, we wish you:
+        </p>
+
+        <div class="cultural-treats">
+          <div class="treat-pill">
+            <span class="treat-icon">🍜</span>
+            <div>
+              <strong>Pampahaba ng Buhay</strong>
+              <div style="font-size: 0.76rem; color: #ccc;">Long life & glowing health</div>
+            </div>
+          </div>
+          <div class="treat-pill">
+            <span class="treat-icon">🎉</span>
+            <div>
+              <strong>Ligaya at Biyaya</strong>
+              <div style="font-size: 0.76rem; color: #ccc;">Overflowing peace & joy</div>
+            </div>
+          </div>
+          <div class="treat-pill">
+            <span class="treat-icon">✨</span>
+            <div>
+              <strong>Tagumpay sa Pangarap</strong>
+              <div style="font-size: 0.76rem; color: #ccc;">All your dreams fulfilled</div>
+            </div>
+          </div>
+          <div class="treat-pill">
+            <span class="treat-icon">💖</span>
+            <div>
+              <strong>Tunay na Pagmamahal</strong>
+              <div style="font-size: 0.76rem; color: #ccc;">Surrounded by good people</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          May the coming year bring you thrilling new adventures, tranquil days, and reasons to laugh every single day. Always remember how special, capable, and loved you are. Enjoy your feast, eat lots of cake, and celebrate to the fullest!
+        </p>
+      </div>
+
+      <div class="signature-area">
+        <div>
+          <div class="sign-closing">With boundless affection & warmest hugs,</div>
+          <div class="sign-name">Mabuhay ka, Kate! 🥂✨</div>
+        </div>
+        <div style="font-size: 1.8rem;">🌺🎂🎈</div>
+      </div>
+    </article>
+
+    <!-- Celebration Playground / Interactive Action Hub -->
+    <section class="glass-card actions-card">
+      <h2 class="actions-title">Kate's Birthday Celebration Hub</h2>
+      <p class="actions-subtitle">Magdiwang tayo! Tap any button to launch celebration surprises</p>
+
+      <div class="button-grid">
+        <button class="action-btn btn-fireworks" id="btnLaunchFireworks">
+          <span class="btn-icon">🎆</span>
+          <span>Sindi ng Paputok</span>
+          <small style="font-weight: 400; opacity: 0.85;">Launch Fireworks</small>
+        </button>
+
+        <button class="action-btn btn-confetti" id="btnShowerConfetti">
+          <span class="btn-icon">🎊</span>
+          <span>Buhos ng Confetti</span>
+          <small style="font-weight: 400; opacity: 0.85;">Shower Confetti</small>
+        </button>
+
+        <button class="action-btn btn-blessing" id="btnPinoyBlessing">
+          <span class="btn-icon">💌</span>
+          <span>Basbas at Biyaya</span>
+          <small style="font-weight: 400; opacity: 0.85;">Birthday Blessing</small>
+        </button>
+
+        <button class="action-btn btn-balloons" id="btnSpawnBalloons">
+          <span class="btn-icon">🎈</span>
+          <span>Magpalipad ng Lobo</span>
+          <small style="font-weight: 400; opacity: 0.85;">Release Balloons</small>
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <div>Ginawa nang may buong puso para kay Kate <span class="footer-heart">💖</span></div>
+      <div>Maligayang Kaarawan! • Have the happiest and most blessed birthday celebration!</div>
+    </footer>
+
+  </main>
+
+  <!-- Filipino Birthday Blessing Modal -->
+  <div class="blessing-modal-backdrop" id="blessingModal">
+    <div class="blessing-modal-card">
+      <button class="close-modal-btn" id="closeBlessingBtn">&times;</button>
+      <div class="blessing-icon" id="blessingIcon">🌟</div>
+      <div class="blessing-tagalog" id="blessingTagalog">
+        "Siksik, liglig, at umaapaw na biyaya at kalusugan para sa iyo ngayong taon!"
+      </div>
+      <div class="blessing-english" id="blessingEnglish">
+        May you be blessed with overflowing abundance, great health, and unending happiness this year!
+      </div>
+      <button class="control-btn" id="nextBlessingBtn" style="margin: 0 auto; background: var(--accent-gold); color: #222; font-weight: 700;">
+        ✨ Isa pang Biyaya • Another Blessing
+      </button>
+    </div>
+  </div>
+
+  <!-- Audio element fallback (optional placeholder if an MP3 file is preferred) -->
+  <!-- 
+  <audio id="bgAudioElement" loop preload="auto">
+    <source src="YOUR_BIRTHDAY_SONG.mp3" type="audio/mpeg">
+  </audio> 
+  -->
+
+  <!-- ==========================================================================
+       JavaScript Logic: Web Audio API, Fireworks Engine, Balloons, & UI
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. WEB AUDIO API SYNTHESIZER (Happy Birthday Melody + Sound Effects)
+       Works 100% offline without external audio files!
+       ========================================================================== */
+    class BirthdayAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.masterGain = null;
+        this.isPlaying = false;
+        this.isMuted = false;
+        this.timer = null;
+        this.noteIndex = 0;
+        this.tempo = 105; // relaxed, charming music box tempo (BPM)
+        
+        // Happy Birthday in Key of F
+        // Format: [midiNote, durationInBeats] (0 means rest)
+        this.melody = [
+          [60, 0.75], [60, 0.25], [62, 1.0], [60, 1.0], [65, 1.0], [64, 2.0],
+          [60, 0.75], [60, 0.25], [62, 1.0], [60, 1.0], [67, 1.0], [65, 2.0],
+          [60, 0.75], [60, 0.25], [72, 1.0], [69, 1.0], [65, 1.0], [64, 1.0], [62, 2.0],
+          [70, 0.75], [70, 0.25], [69, 1.0], [65, 1.0], [67, 1.0], [65, 2.5],
+          [0, 2.0] // breathing pause before looping
+        ];
+
+        // Soft music box chords for harmony
+        this.harmonies = {
+          4: [53, 57],   // Bar 1 chord: F3, A3
+          5: [48, 55],   // Bar 2 chord: C3, G3
+          10: [48, 55],  // Bar 4 chord: C3, G3
+          11: [53, 57],  // Bar 5 chord: F3, A3
+          14: [53, 60],  // Bar 6 chord: F3, C4
+          16: [50, 58],  // Bar 7 chord: D3, Bb3
+          18: [46, 53],  // Bar 8 chord: Bb2, F3
+          22: [48, 55],  // Bar 9 chord: C3, G3
+          23: [53, 57, 60] // Final F major chord
+        };
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContextClass();
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+          this.masterGain.connect(this.ctx.destination);
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      midiToFreq(midi) {
+        return 440 * Math.pow(2, (midi - 69) / 12);
+      }
+
+      // Play a lovely bell/music box note with sweet overtone harmonics
+      playMusicBoxTone(midi, durationSec, velocity = 0.5) {
+        if (!this.ctx || this.isMuted) return;
+        const now = this.ctx.currentTime;
+        const freq = this.midiToFreq(midi);
+
+        // Primary bell tone (sine)
+        const osc1 = this.ctx.createOscillator();
+        const gain1 = this.ctx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, now);
+
+        // Harmonic shimmer tone (2.76x or 2x for bell chime)
+        const osc2 = this.ctx.createOscillator();
+        const gain2 = this.ctx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(freq * 2.0, now);
+
+        const noteGain = this.ctx.createGain();
+        noteGain.gain.setValueAtTime(velocity, now);
+
+        // Music Box ADSR envelope: instantaneous attack, exponential crystal decay
+        gain1.gain.setValueAtTime(0.0001, now);
+        gain1.gain.linearRampToValueAtTime(0.85, now + 0.008);
+        gain1.gain.exponentialRampToValueAtTime(0.0001, now + Math.max(0.6, durationSec * 1.5));
+
+        gain2.gain.setValueAtTime(0.0001, now);
+        gain2.gain.linearRampToValueAtTime(0.25, now + 0.005);
+        gain2.gain.exponentialRampToValueAtTime(0.0001, now + Math.max(0.3, durationSec * 0.9));
+
+        osc1.connect(gain1);
+        osc2.connect(gain2);
+        gain1.connect(noteGain);
+        gain2.connect(noteGain);
+        noteGain.connect(this.masterGain);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 2.0);
+        osc2.stop(now + 1.2);
+      }
+
+      startMelody() {
+        this.init();
+        if (this.isPlaying) return;
+        this.isPlaying = true;
+        this.noteIndex = 0;
+        this.scheduleNextNote();
+      }
+
+      scheduleNextNote() {
+        if (!this.isPlaying) return;
+
+        const current = this.melody[this.noteIndex];
+        const midi = current[0];
+        const durationBeats = current[1];
+        const secondsPerBeat = 60 / this.tempo;
+        const durationSec = durationBeats * secondsPerBeat;
+
+        if (midi > 0) {
+          this.playMusicBoxTone(midi, durationSec, 0.45);
+
+          // Check if there is an accompanying harmony
+          if (this.harmonies[this.noteIndex]) {
+            this.harmonies[this.noteIndex].forEach(harmMidi => {
+              this.playMusicBoxTone(harmMidi, durationSec * 1.2, 0.25);
+            });
+          }
+        }
+
+        this.noteIndex = (this.noteIndex + 1) % this.melody.length;
+        this.timer = setTimeout(() => {
+          this.scheduleNextNote();
+        }, durationSec * 1000);
+      }
+
+      stopMelody() {
+        this.isPlaying = false;
+        if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+        }
+      }
+
+      toggleAudio() {
+        if (!this.ctx) {
+          this.init();
+        }
+        if (this.isMuted) {
+          this.isMuted = false;
+          if (!this.isPlaying) this.startMelody();
+          return true;
+        } else {
+          this.isMuted = true;
+          this.stopMelody();
+          return false;
+        }
+      }
+
+      /* Sound Effect: Balloon Pop */
+      playPopSound() {
+        if (!this.ctx || this.isMuted) return;
+        const now = this.ctx.currentTime;
+        
+        // Fast pitch chirp for balloon snap
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.08);
+
+        gain.gain.setValueAtTime(0.5, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.1);
+      }
+
+      /* Sound Effect: Candle Puff & Chime */
+      playCandleWhoosh() {
+        if (!this.ctx || this.isMuted) return;
+        const now = this.ctx.currentTime;
+        
+        // Sparkle high chime
+        [72, 76, 79, 84].forEach((note, idx) => {
+          setTimeout(() => {
+            this.playMusicBoxTone(note, 0.8, 0.35);
+          }, idx * 90);
+        });
+      }
+
+      /* Sound Effect: Fireworks Bang & Crackle */
+      playFireworkBoom() {
+        if (!this.ctx || this.isMuted) return;
+        const now = this.ctx.currentTime;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.28);
+
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.32);
+      }
+    }
+
+    const audioEngine = new BirthdayAudioEngine();
+
+    /* ==========================================================================
+       2. FULLSCREEN FIREWORKS ENGINE (HTML5 Canvas)
+       ========================================================================== */
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
+    let fireworks = [];
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class FireworkRocket {
+      constructor(targetX, targetY) {
+        this.x = canvas.width * 0.2 + Math.random() * canvas.width * 0.6;
+        this.y = canvas.height;
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.distanceToTarget = Math.hypot(this.targetX - this.x, this.targetY - this.y);
+        this.distanceTraveled = 0;
+        this.angle = Math.atan2(targetY - this.y, targetX - this.x);
+        this.speed = 4 + Math.random() * 4;
+        this.acceleration = 1.03;
+        this.coordinates = [];
+        this.coordinateCount = 3;
+        while (this.coordinateCount--) {
+          this.coordinates.push([this.x, this.y]);
+        }
+        this.hue = Math.floor(Math.random() * 360);
+      }
+
+      update(index) {
+        this.coordinates.pop();
+        this.coordinates.unshift([this.x, this.y]);
+        this.speed *= this.acceleration;
+
+        const vx = Math.cos(this.angle) * this.speed;
+        const vy = Math.sin(this.angle) * this.speed;
+        this.distanceTraveled = Math.hypot(this.x - this.coordinates[0][0], this.y - this.coordinates[0][1]);
+
+        if (this.y <= this.targetY || Math.hypot(this.targetX - this.x, this.targetY - this.y) <= 20) {
+          createExplosion(this.targetX, this.targetY, this.hue);
+          fireworks.splice(index, 1);
+          audioEngine.playFireworkBoom();
+        } else {
+          this.x += vx;
+          this.y += vy;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+        ctx.lineTo(this.x, this.y);
+        ctx.strokeStyle = `hsl(${this.hue}, 100%, 75%)`;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+    }
+
+    class Particle {
+      constructor(x, y, hue) {
+        this.x = x;
+        this.y = y;
+        this.coordinates = [];
+        this.coordinateCount = 5;
+        while (this.coordinateCount--) {
+          this.coordinates.push([this.x, this.y]);
+        }
+        this.angle = Math.random() * Math.PI * 2;
+        this.speed = Math.random() * 8 + 1.5;
+        this.friction = 0.95;
+        this.gravity = 0.98;
+        this.hue = hue + (Math.random() * 40 - 20);
+        this.brightness = Math.random() * 30 + 70;
+        this.alpha = 1;
+        this.decay = Math.random() * 0.018 + 0.012;
+      }
+
+      update(index) {
+        this.coordinates.pop();
+        this.coordinates.unshift([this.x, this.y]);
+        this.speed *= this.friction;
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed + this.gravity;
+        this.alpha -= this.decay;
+
+        if (this.alpha <= this.decay) {
+          particles.splice(index, 1);
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+        ctx.lineTo(this.x, this.y);
+        ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`;
+        ctx.lineWidth = 2.2;
+        ctx.stroke();
+      }
+    }
+
+    function createExplosion(x, y, hue) {
+      const particleCount = 45;
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle(x, y, hue));
+      }
+    }
+
+    function launchRandomFirework() {
+      const targetX = Math.random() * canvas.width * 0.8 + canvas.width * 0.1;
+      const targetY = Math.random() * canvas.height * 0.45 + canvas.height * 0.1;
+      fireworks.push(new FireworkRocket(targetX, targetY));
+    }
+
+    function loopFireworks() {
+      requestAnimationFrame(loopFireworks);
+      // Soft trail clear
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = 'lighter';
+
+      let i = fireworks.length;
+      while (i--) {
+        fireworks[i].draw();
+        fireworks[i].update(i);
+      }
+
+      let j = particles.length;
+      while (j--) {
+        particles[j].draw();
+        particles[j].update(j);
+      }
+    }
+    loopFireworks();
+
+    // Auto-launch subtle periodic fireworks
+    setInterval(() => {
+      if (!document.hidden && fireworks.length < 4) {
+        launchRandomFirework();
+      }
+    }, 2800);
+
+    // Click anywhere on canvas to launch direct firework
+    canvas.addEventListener('pointerdown', (e) => {
+      fireworks.push(new FireworkRocket(e.clientX, e.clientY));
+    });
+
+    /* ==========================================================================
+       3. FLOATING BALLOONS SYSTEM WITH POP EFFECTS
+       ========================================================================== */
+    const balloonContainer = document.getElementById('balloonContainer');
+    const popCountEl = document.getElementById('popCount');
+    let poppedBalloons = 0;
+
+    const balloonGradients = [
+      'linear-gradient(135deg, #ff4071 0%, #ff758c 100%)', // Rose Pink
+      'linear-gradient(135deg, #ffd166 0%, #ffbe3b 100%)', // Gold
+      'linear-gradient(135deg, #9b5de5 0%, #b388ff 100%)', // Royal Purple
+      'linear-gradient(135deg, #00f5d4 0%, #00bbf9 100%)', // Aqua/Cyan
+      'linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%)', // Sunset Coral
+      'linear-gradient(135deg, #f15bb5 0%, #fee440 100%)'  // Pink Sunshine
+    ];
+
+    const popAffirmations = [
+      "🎉 Pop! Galing!",
+      "💖 Maligayang Kaarawan!",
+      "✨ Stay Amazing!",
+      "🌸 Labyu Kate!",
+      "🥳 Yehey!",
+      "🌟 More Blessings!",
+      "🎂 Blow the candles!",
+      "💫 Mabuhay ka!"
+    ];
+
+    function createBalloon(customX = null) {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+
+      const gradient = balloonGradients[Math.floor(Math.random() * balloonGradients.length)];
+      balloon.style.background = gradient;
+
+      const sizeScale = 0.8 + Math.random() * 0.45;
+      balloon.style.transform = `scale(${sizeScale})`;
+
+      const startX = customX !== null ? customX : Math.random() * (window.innerWidth - 80) + 30;
+      let currentY = window.innerHeight + 100;
+      const speed = 1.2 + Math.random() * 1.6;
+      const swayAmplitude = 25 + Math.random() * 35;
+      const swayFrequency = 0.015 + Math.random() * 0.02;
+      let tick = Math.random() * 100;
+
+      balloon.style.left = `${startX}px`;
+      balloon.style.top = `${currentY}px`;
+
+      // Knot & String
+      const knot = document.createElement('div');
+      knot.className = 'balloon-knot';
+      knot.style.background = gradient;
+      const string = document.createElement('div');
+      string.className = 'balloon-string';
+
+      balloon.appendChild(knot);
+      balloon.appendChild(string);
+      balloonContainer.appendChild(balloon);
+
+      // Animation step
+      let animId;
+      function moveBalloon() {
+        tick++;
+        currentY -= speed;
+        const currentX = startX + Math.sin(tick * swayFrequency) * swayAmplitude;
+        balloon.style.top = `${currentY}px`;
+        balloon.style.left = `${currentX}px`;
+
+        if (currentY < -120) {
+          cancelAnimationFrame(animId);
+          balloon.remove();
+        } else {
+          animId = requestAnimationFrame(moveBalloon);
+        }
+      }
+      animId = requestAnimationFrame(moveBalloon);
+
+      // Tap / Click to Pop
+      balloon.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();
+        cancelAnimationFrame(animId);
+        popBalloon(balloon, e.clientX, e.clientY);
+      });
+    }
+
+    function popBalloon(balloonEl, x, y) {
+      audioEngine.playPopSound();
+      poppedBalloons++;
+      popCountEl.textContent = poppedBalloons;
+
+      // Pop Particles
+      const rect = balloonEl.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const computedBg = getComputedStyle(balloonEl).backgroundImage;
+
+      for (let i = 0; i < 14; i++) {
+        const shard = document.createElement('div');
+        shard.className = 'balloon-shard';
+        shard.style.background = '#ffbe3b';
+        shard.style.left = `${centerX}px`;
+        shard.style.top = `${centerY}px`;
+        document.body.appendChild(shard);
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 30 + Math.random() * 50;
+        const destX = Math.cos(angle) * dist;
+        const destY = Math.sin(angle) * dist;
+
+        shard.animate([
+          { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+          { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
+        ], {
+          duration: 450 + Math.random() * 200,
+          easing: 'ease-out'
+        }).onfinish = () => shard.remove();
+      }
+
+      // Pop floating greeting
+      const floatText = document.createElement('div');
+      floatText.className = 'pop-float-text';
+      floatText.textContent = popAffirmations[Math.floor(Math.random() * popAffirmations.length)];
+      floatText.style.left = `${centerX - 40}px`;
+      floatText.style.top = `${centerY - 20}px`;
+      document.body.appendChild(floatText);
+      setTimeout(() => floatText.remove(), 900);
+
+      // Micro confetti blast at pop point
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 15,
+          spread: 50,
+          origin: { x: centerX / window.innerWidth, y: centerY / window.innerHeight },
+          colors: ['#ff4071', '#ffd166', '#00f5d4', '#9b5de5']
+        });
+      }
+
+      balloonEl.remove();
+    }
+
+    // Spawn balloons continuously
+    setInterval(() => {
+      if (!document.hidden && document.querySelectorAll('.balloon').length < 9) {
+        createBalloon();
+      }
+    }, 2200);
+
+    // Initial batch
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => createBalloon(), i * 400);
+    }
+
+    /* ==========================================================================
+       4. INTERACTIVE ENTRY OVERLAY (Gift Box Surprise)
+       ========================================================================== */
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    const giftBoxTrigger = document.getElementById('giftBoxTrigger');
+    const openGiftBtn = document.getElementById('openGiftBtn');
+
+    function openGiftSurprise() {
+      // 1. Initialize & Start Audio Context seamlessly
+      audioEngine.startMelody();
+
+      // 2. Animate Gift Box opening
+      giftBoxTrigger.classList.add('opened');
+
+      // 3. Grand Confetti explosion
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 120,
+          spread: 90,
+          origin: { y: 0.6 },
+          colors: ['#ff4071', '#ffd166', '#ffffff', '#00f5d4', '#9b5de5']
+        });
+
+        setTimeout(() => {
+          confetti({
+            particleCount: 80,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#ffd166', '#ff4071']
+          });
+          confetti({
+            particleCount: 80,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#00f5d4', '#9b5de5']
+          });
+        }, 300);
+      }
+
+      // 4. Launch immediate celebratory fireworks
+      launchRandomFirework();
+      setTimeout(launchRandomFirework, 200);
+      setTimeout(launchRandomFirework, 450);
+
+      // 5. Fade out overlay
+      setTimeout(() => {
+        welcomeOverlay.classList.add('hidden');
+      }, 700);
+    }
+
+    giftBoxTrigger.addEventListener('click', openGiftSurprise);
+    openGiftBtn.addEventListener('click', openGiftSurprise);
+
+    /* ==========================================================================
+       5. AUDIO TOGGLE BUTTON
+       ========================================================================== */
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const musicWaves = document.getElementById('musicWaves');
+    const audioBtnText = document.getElementById('audioBtnText');
+
+    audioToggleBtn.addEventListener('click', () => {
+      const isAudible = audioEngine.toggleAudio();
+      if (isAudible) {
+        musicWaves.classList.remove('paused');
+        audioBtnText.textContent = 'Music On';
+      } else {
+        musicWaves.classList.add('paused');
+        audioBtnText.textContent = 'Muted';
+      }
+    });
+
+    /* ==========================================================================
+       6. INTERACTIVE CAKE & CANDLE BLOWING
+       ========================================================================== */
+    const cakeInteractive = document.getElementById('cakeInteractive');
+    const blowCandlesBtn = document.getElementById('blowCandlesBtn');
+    const candleBtnLabel = document.getElementById('candleBtnLabel');
+    const wishAlertBox = document.getElementById('wishAlertBox');
+    const flames = [document.getElementById('flame1'), document.getElementById('flame2'), document.getElementById('flame3')];
+    const smokes = [document.getElementById('smoke1'), document.getElementById('smoke2'), document.getElementById('smoke3')];
+    let candlesBlown = false;
+
+    function handleCandlesToggle() {
+      if (!candlesBlown) {
+        // Blow out candles
+        candlesBlown = true;
+        flames.forEach(f => f.classList.add('extinguished'));
+        smokes.forEach(s => {
+          s.classList.remove('puff');
+          void s.offsetWidth; // trigger reflow
+          s.classList.add('puff');
+        });
+
+        audioEngine.playCandleWhoosh();
+
+        // Confetti shower
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 90,
+            spread: 70,
+            origin: { y: 0.55 },
+            colors: ['#ffd166', '#ff4071', '#ffffff', '#00f5d4']
+          });
+        }
+
+        wishAlertBox.classList.add('active');
+        candleBtnLabel.textContent = 'Sindihang muli ang Kandila • Relight Candles 🕯️';
+      } else {
+        // Relight candles
+        candlesBlown = false;
+        flames.forEach(f => f.classList.remove('extinguished'));
+        smokes.forEach(s => s.classList.remove('puff'));
+        wishAlertBox.classList.remove('active');
+        candleBtnLabel.textContent = 'Hipan ang kandila at Humiling! • Blow candles & Make a Wish';
+      }
+    }
+
+    cakeInteractive.addEventListener('click', handleCandlesToggle);
+    blowCandlesBtn.addEventListener('click', handleCandlesToggle);
+
+    /* ==========================================================================
+       7. CELEBRATION PLAYGROUND BUTTONS
+       ========================================================================== */
+    // A. Launch Fireworks
+    document.getElementById('btnLaunchFireworks').addEventListener('click', () => {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(launchRandomFirework, i * 260);
+      }
+    });
+
+    // B. Shower Confetti Cannon
+    document.getElementById('btnShowerConfetti').addEventListener('click', () => {
+      if (typeof confetti === 'function') {
+        // Multistage confetti cannon
+        const count = 200;
+        const defaults = { origin: { y: 0.7 } };
+
+        function fire(particleRatio, opts) {
+          confetti(Object.assign({}, defaults, opts, {
+            particleCount: Math.floor(count * particleRatio)
+          }));
+        }
+
+        fire(0.25, { spread: 26, startVelocity: 55 });
+        fire(0.2, { spread: 60 });
+        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 120, startVelocity: 45 });
+      }
+    });
+
+    // C. Release Balloons
+    document.getElementById('btnSpawnBalloons').addEventListener('click', () => {
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          const randomX = Math.random() * (window.innerWidth - 80) + 40;
+          createBalloon(randomX);
+        }, i * 180);
+      }
+    });
+
+    // D. Filipino Birthday Blessings Modal
+    const pinoyBlessings = [
+      {
+        icon: "🌟",
+        tagalog: "Siksik, liglig, at umaapaw na biyaya at kalusugan para sa iyo ngayong taon!",
+        english: "May you be blessed with overflowing abundance, radiant health, and unending prosperity this year!"
+      },
+      {
+        icon: "💖",
+        tagalog: "Nawa'y laging mapuno ng ngiti ang iyong mga labi at kapayapaan ang iyong puso.",
+        english: "May your smiles remain bright and your heart always find peace, joy, and comforting warmth."
+      },
+      {
+        icon: "🥂",
+        tagalog: "Isang masaganang taon na puno ng bagong tagumpay, masarap na handaan, at masayang barkada!",
+        english: "Here's to a flourishing year filled with exciting breakthroughs, delicious feasts, and true friendships!"
+      },
+      {
+        icon: "✨",
+        tagalog: "Matupad sana ang bawat panalangin at pangarap na lihim mong idinadalangin.",
+        english: "May every prayer, hope, and secret wish in your heart be granted with grace and fulfillment."
+      },
+      {
+        icon: "🌺",
+        tagalog: "Salamat sa iyong dalisay na kabaitan. Manatili kang liwanag at inspirasyon sa aming lahat!",
+        english: "Thank you for your sincere kindness. Continue to be the inspiring, shining light you are to everyone!"
+      }
+    ];
+
+    let currentBlessingIdx = 0;
+    const blessingModal = document.getElementById('blessingModal');
+    const closeBlessingBtn = document.getElementById('closeBlessingBtn');
+    const nextBlessingBtn = document.getElementById('nextBlessingBtn');
+    const blessingIcon = document.getElementById('blessingIcon');
+    const blessingTagalog = document.getElementById('blessingTagalog');
+    const blessingEnglish = document.getElementById('blessingEnglish');
+
+    function showBlessing(index) {
+      const b = pinoyBlessings[index % pinoyBlessings.length];
+      blessingIcon.textContent = b.icon;
+      blessingTagalog.textContent = `"${b.tagalog}"`;
+      blessingEnglish.textContent = b.english;
+      blessingModal.classList.add('open');
+      audioEngine.playPopSound();
+    }
+
+    document.getElementById('btnPinoyBlessing').addEventListener('click', () => {
+      showBlessing(currentBlessingIdx);
+    });
+
+    nextBlessingBtn.addEventListener('click', () => {
+      currentBlessingIdx = (currentBlessingIdx + 1) % pinoyBlessings.length;
+      showBlessing(currentBlessingIdx);
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 30, spread: 60, origin: { y: 0.6 } });
+      }
+    });
+
+    closeBlessingBtn.addEventListener('click', () => {
+      blessingModal.classList.remove('open');
+    });
+
+    blessingModal.addEventListener('click', (e) => {
+      if (e.target === blessingModal) {
+        blessingModal.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
